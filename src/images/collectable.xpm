@@ -1,0 +1,27 @@
+/* XPM */
+static char *_e0d46090a6844e6f053a1e2bf0cb5b8Q46xfhxCaQBpPTj7[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1 ",
+"  c black",
+". c #306850",
+"X c #65FF00",
+"o c #86C06C",
+"O c #E0F8D0",
+/* pixels */
+"XXXXXXXXXXXXXXXX",
+"XX    XXX    XXX",
+"X OOOO X OOOO XX",
+" OooooO OooooO X",
+" ooooooooooooo X",
+" ooooooooooooo X",
+" ooooooooooooo X",
+"X ooooooooooo XX",
+"X .ooooooooo. XX",
+"XX .ooooooo. XXX",
+"XXX .ooooo. XXXX",
+"XXXX .ooo. XXXXX",
+"XXXXX ... XXXXXX",
+"XXXXXX   XXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX"
+};

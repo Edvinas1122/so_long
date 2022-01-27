@@ -6,7 +6,7 @@
 #    By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 06:40:44 by emomkus           #+#    #+#              #
-#    Updated: 2022/01/25 17:03:28 by emomkus          ###   ########.fr        #
+#    Updated: 2022/01/27 10:19:45 by emomkus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src/
 OBJ = $(SRC_FILES:.c=.o)
 SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
 #---ENGINE-----------------------
-ENGINE_FILES = map_scan.c
+ENGINE_FILES = initialize.c map_to_heap.c key_to_heap_map.c display.c
 ENGINE_OBJ = $(ENGINE_FILES:.c=.o)
 ENGINE_DIR = src/engine/
 ENGINE = $(addprefix $(ENGINE_DIR),$(ENGINE_FILES))
