@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:07:48 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 00:07:35 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:20:28 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,79 @@
 
 static int	check_valid_char(char c, int f)
 {
-	static char a[3];
-	
+	static char	a[3];
+
 	if (f == 1)
 		if (!(a[0] == 1 && a[1] > 0 && a[2] == 1))
-			return (0);
-	if (c == '0')
-		return (1);
-	else if (c == '1')
-		return (1);
-	else if (c == 'P')
+			return (1);
+	if (c == '0' || c == '1' || c == 'P' || c == 'C' || c == 'E')
 	{
-		a[0]++;
+		if (c == 'P')
+			a[0]++;
+		if (c == 'C')
+			a[1]++;
+		if (c == 'E')
+			a[2]++;
 		return (1);
 	}
-	else if (c == 'C')
-	{
-		a[1]++;
-		return (1);
-	}
-	else if (c == 'E')
-	{
-		a[2]++;
-		return (1);
-	}
-	else
-		return(0);
+	return (0);
 }
 
-static int	check_valid_map(char *map, int len, int row, int i, int tmp)
+static int	check_valid_top_n_bottom(char *map, int len, int is_top, int row)
 {
-	while (map[i] != '\n')
+	int	i;
+
+	i = row * len;
+	while (len-- - 1 != 0)
 	{
-		if (map[i] == '\0' || map[i++] != '1')
-			return(0);
-	}
-	while (row > 1)
-	{
-		tmp = len - 2;
-		if (map[++i] != '1')
-			return (0);
-		while (tmp--)
-		{
-			if (!check_valid_char(map[++i], 0))
-				return (0);
-		}
 		if (map[i++] != '1')
 			return (0);
-		row--;
 	}
-	while (--len != 0)
-	{
-		if (map[++i] != '1')
-			return(0);
+	if (is_top && map[i] == '\n')
+		return (1);
+	if (!is_top && map[i] == 0)
+		return (1);
+	return (0);
+}
+
+static int	check_valid_mid(char *map, int len, int row)
+{
+	int	i;
+
+	i = (row - 1) * len;
+	if (map[i] != '1')
+		return (0);
+	while (len-- - 3)
+	{	
+		if (!check_valid_char(map[++i], 0))
+			return (0);
 	}
+	if (map[++i] != '1')
+		return (0);
+	if (map[++i] != '\n')
+		return (0);
 	return (1);
+}
+
+void	check_valid(char *map_str, int len, int rows)
+{
+	int	kill;
+
+	kill = 0;
+	if (!check_valid_top_n_bottom(map_str, len, 1, 0))
+		kill = 1;
+	if (!check_valid_top_n_bottom(map_str, len, 0, rows) || kill)
+		kill = 1;
+	while (rows - 1 && !kill)
+	{
+		if (!check_valid_mid(map_str, len, rows))
+			kill = 1;
+		rows--;
+	}
+	if (!check_valid_char('0', 1) && !kill)
+		kill = 1;
+	if (kill)
+		error_terminate(3, map_str);
 }
 
 char	*map_to_heap(t_game *game, char **argv)
@@ -79,25 +97,20 @@ char	*map_to_heap(t_game *game, char **argv)
 	int		rows;
 
 	rows = 0;
-	if (!(fd = open(argv[1], O_RDONLY)))
-		exit(0);
-	if (!(map_str = get_next_line(fd)))
-	{
-		write(1, "Empty map", 9);
-		exit(0);
-	}
+	fd = open(argv[1], O_RDONLY);
+	if (!fd)
+		error_terminate(1, NULL);
+	map_str = get_next_line(fd);
+	if (!map_str)
+		error_terminate(2, NULL);
 	game->gmech.lenght = ft_strlen(map_str);
-	while ((tmp = get_next_line(fd)))
+	tmp = get_next_line(fd);
+	while (tmp)
 	{
 		rows++;
 		map_str = ft_strjoin_free(map_str, tmp);
+		tmp = get_next_line(fd);
 	}
-	if (!check_valid_map(map_str, game->gmech.lenght, rows, 0, 0) &&
-			!heck_valid_char("0", 1))
-	{
-		write(1, "Invalid map", 11);
-		free(map_str);
-		exit(0);
-	}
+	check_valid(map_str, game->gmech.lenght, rows);
 	return (map_str);
 }

@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:55:03 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/27 18:49:55 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:24:14 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	move_player(t_game *game, int where)
 {
-	if (!(game->map[game->gmech.player_pos + where] == '1' ||
-		(game->map[game->gmech.player_pos + where] == 'E' && !game->gmech.door)))
+	if (!(game->map[game->gmech.player_pos + where] == '1'
+			|| (game->map[game->gmech.player_pos + where] == 'E'
+				&& !game->gmech.door)))
 	{
 		game->map[game->gmech.player_pos + where] = 'P';
 		game->map[game->gmech.player_pos] = '0';
@@ -23,13 +24,12 @@ void	move_player(t_game *game, int where)
 	}
 }
 
-
-int actions(int key, t_game *game)
+int	actions(int key, t_game *game)
 {
 	if (key == KEY_ESC)
 	{
-		ft_printf("Quit game\n");
-		/*FREE FUNCTION*/
+		write(1, "Quit game\n", 10);
+		free(game->map);
 		mlx_destroy_window(game->mlx, game->win);
 		exit(0);
 	}

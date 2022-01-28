@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:45:25 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/27 19:14:56 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:32:01 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,40 @@
 # define SPEED 13
 
 /* Visual assets */
-typedef struct	s_assets {
+typedef struct s_assets
+{
 	void	*wall;
 	void	*ground;
 	void	*collectable[2];
 	void	*player[2];
 	void	*exit[2];
-}				t_assets;
+}	t_assets;
 
 /*Game mechanics data*/
 typedef struct s_gmech
 {
 	int	lenght;
-	int player_pos;
+	int	player_pos;
 	int	door;
 	int	step_num;
 	int	finish;
-}				t_gmech;
+}	t_gmech;
 
 /* Runtime data */
-typedef struct	s_game {
+typedef struct s_game {
 	void		*mlx;
 	void		*win;
 	char		*map;
+	int			frame;
 	t_assets	assets;
 	t_gmech		gmech;
-}				t_game;
+}	t_game;
 
 char	*map_to_heap(t_game *game, char **argv);
 void	start(t_game *game, char **argv);
+void	error_terminate(int num, char *map);
 /* Keys*/
-int 	actions(int key, t_game *game);
+int		actions(int key, t_game *game);
 /* Display*/
 int		update_display(t_game *game);
 

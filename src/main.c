@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:54:06 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/27 22:30:44 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:32:16 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,33 @@ static void	check_file_format(char *name)
 	}
 }
 
+void	error_terminate(int num, char *map)
+{
+	if (num == 1)
+		write(1, "Permission error", 17);
+	else if (num == 2)
+		write(1, "Empty map", 9);
+	else if (num == 3)
+	{
+		write(1, "Invalid map", 11);
+		free(map);
+	}
+	else if (num == 4)
+	{
+		write(1, "So long !", 9);
+		free(map);
+	}
+	exit(0);
+	
+}
+
+static int	close_win(t_game *game)
+{
+	free(game->map);
+	write(1, "Quit game", 9);
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -37,7 +64,8 @@ int	main(int argc, char **argv)
 	}
 	check_file_format(argv[1]);
 	start(&game, argv);
-	mlx_hook(game.win, 2, 1L<<1, actions, &game); /*X GUI close key error*/
+	mlx_hook(game.win, 17, 0L, close_win, &game);
+	mlx_hook(game.win, 2, 1L << 1, actions, &game);
 	mlx_loop_hook(game.mlx, update_display, (void *)&game);
 	mlx_loop(game.mlx);
 }

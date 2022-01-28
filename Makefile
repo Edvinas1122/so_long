@@ -6,7 +6,7 @@
 #    By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 06:40:44 by emomkus           #+#    #+#              #
-#    Updated: 2022/01/27 10:19:45 by emomkus          ###   ########.fr        #
+#    Updated: 2022/01/28 13:43:33 by emomkus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBFT_FILES = libft.h libft.a
 LIBFT_DIR = src/lib/libft/
 LIBFT = $(addprefix $(LIBFT_DIR),$(LIBFT_FILES))
 #---Flags-------------------------
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 LINKS = -lmlx -framework OpenGL -framework AppKit
 #---Colors------------------------
 NONE='\033[0m'

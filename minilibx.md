@@ -19,3 +19,7 @@ https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#compilati
 
 Audio support
 https://developer.apple.com/library/archive/technotes/tn2097/_index.html
+
+
+Key hook codes
+https://code.woboq.org/qt5/include/X11/X.h.html
