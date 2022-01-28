@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:07:48 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 17:20:28 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 20:14:49 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	check_valid(char *map_str, int len, int rows)
 	if (!check_valid_char('0', 1) && !kill)
 		kill = 1;
 	if (kill)
-		error_terminate(3, map_str);
+		error_terminate(3, NULL, map_str);
 }
 
 char	*map_to_heap(t_game *game, char **argv)
@@ -99,10 +99,10 @@ char	*map_to_heap(t_game *game, char **argv)
 	rows = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (!fd)
-		error_terminate(1, NULL);
+		error_terminate(1, NULL, NULL);
 	map_str = get_next_line(fd);
 	if (!map_str)
-		error_terminate(2, NULL);
+		error_terminate(2, NULL, NULL);
 	game->gmech.lenght = ft_strlen(map_str);
 	tmp = get_next_line(fd);
 	while (tmp)

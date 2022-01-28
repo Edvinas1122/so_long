@@ -23,3 +23,10 @@ https://developer.apple.com/library/archive/technotes/tn2097/_index.html
 
 Key hook codes
 https://code.woboq.org/qt5/include/X11/X.h.html
+
+Keys
+https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h
+
+
+Brew install Xquartz
+sudo apt-get install gcc make xorg libxext-dev libbsd-dev

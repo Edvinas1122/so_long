@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:55:05 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 17:31:16 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 22:06:10 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static void	itterate_map(t_game *game)
 	int	i;
 	int	door;
 
-	if (game->frame++ > SPEED)
-		game->frame = -SPEED;
 	i = 0;
 	door = 0;
 	game->gmech.finish = 0;
@@ -68,12 +66,13 @@ static void	itterate_map(t_game *game)
 	if (!door)
 		game->gmech.door = 1;
 	if (!game->gmech.finish)
-		error_terminate(4, game->map);
+		error_terminate(4, game, NULL);
 }
 
 int	update_display(t_game *game)
 {
-	mlx_clear_window(game->mlx, game->win);
+	if (game->frame++ > SPEED)
+		game->frame = -SPEED;
 	itterate_map(game);
 	mlx_string_put(game->mlx, game->win, 60, 60, 0x00000000,
 		ft_itoa(game->gmech.step_num));

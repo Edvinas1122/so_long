@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:55:03 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 17:24:14 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 20:40:43 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ int	actions(int key, t_game *game)
 		write(1, "Quit game\n", 10);
 		free(game->map);
 		mlx_destroy_window(game->mlx, game->win);
+		free(game->mlx);
 		exit(0);
 	}
-	else if (key == KEY_W)
+	else if (key == KEY_W || key == KEY_UP)
 		move_player(game, -game->gmech.lenght);
-	else if (key == KEY_A)
+	else if (key == KEY_A || key == KEY_LEFT)
 		move_player(game, -1);
-	else if (key == KEY_D)
+	else if (key == KEY_D || key == KEY_RIGHT)
 		move_player(game, 1);
-	else if (key == KEY_S)
+	else if (key == KEY_S || key == KEY_DOWN)
 		move_player(game, game->gmech.lenght);
 	game->gmech.step_num++;
 	return (0);
