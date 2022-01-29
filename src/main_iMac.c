@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:54:06 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 22:20:17 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 22:30:54 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 	check_file_format(argv[1]);
 	start(&game, argv);
 	mlx_hook(game.win, 17, 0L, close_win, &game);
-	mlx_hook(game.win, 2, 1L<<2, actions, &game);
+	mlx_hook(game.win, 2, 1L << 2, actions, &game);
 	mlx_loop_hook(game.mlx, update_display, (void *)&game);
 	mlx_loop(game.mlx);
 }

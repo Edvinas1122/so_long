@@ -6,7 +6,7 @@
 #    By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 06:40:44 by emomkus           #+#    #+#              #
-#    Updated: 2022/01/28 22:27:39 by emomkus          ###   ########.fr        #
+#    Updated: 2022/01/29 21:13:08 by emomkus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ ENGINE_OBJ = $(ENGINE_FILES:.c=.o)
 ENGINE_DIR = src/engine/
 ENGINE = $(addprefix $(ENGINE_DIR),$(ENGINE_FILES))
 #---Libraries---------------------
-PRINTF_FILES = printf.h libftprintf.a
+PRINTF_FILES = ft_printf.h libftprintf.a
 PRINTF_DIR = src/lib/printf/
 PRINTF = $(addprefix $(PRINTF_DIR),$(PRINTF_FILES))
 GNL_FILES = get_next_line.h get_line.a
@@ -40,7 +40,7 @@ MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
 #---Flags-------------------------
 FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 LINKS = -lmlx -framework OpenGL -framework AppKit
-LINKS_2 = -Lsrc/lib/mlx -L/usr/X11/lib -lmlx -lX11 -lXext
+LINKS_2 = -L src/lib/mlx -L /usr/X11/lib -lX11 -lXext -Imlx -lmlx
 IMAC = -D KEY_A=0 -D KEY_W=13 -D KEY_D=2 -D KEY_S=1 -D KEY_ESC=53 -D SPEED=13
 #---Colors------------------------
 NONE='\033[0m'
@@ -76,7 +76,7 @@ iMac: $(PRINTF) $(LIBFT) $(GNL) $(OBJ_IMAC)
 
 $(OBJ): $(SRC) 
 	@echo $(CURSIVE)$(GRAY) "     - Making iMac object files..." $(NONE)
-	@gcc $(FLAGS) -c $(SRC)
+	@gcc $(FLAGS) -D SYS=42 -c $(SRC)
 
 $(OBJ_IMAC): $(SRC_IMAC) 
 	@echo $(CURSIVE)$(GRAY) "     - Making iMac object files..." $(NONE)

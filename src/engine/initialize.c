@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:52:00 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 17:27:04 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/28 23:17:42 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void	start(t_game *game, char **argv)
 	game->gmech.door = 0;
 	game->gmech.step_num = 0;
 	game->gmech.player_pos = player_pos_find(game->map);
+	game->frame = 0;
 }

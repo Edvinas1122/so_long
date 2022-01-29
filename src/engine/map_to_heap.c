@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:07:48 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 20:14:49 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/29 19:00:06 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 static int	check_valid_char(char c, int f)
 {
-	static char	a[3];
+	static int	a[3];
 
 	if (f == 1)
-		if (!(a[0] == 1 && a[1] > 0 && a[2] == 1))
+	{
+		if (a[0] == 1 && a[1] > 0 && a[2] == 1)
 			return (1);
-	if (c == '0' || c == '1' || c == 'P' || c == 'C' || c == 'E')
+		else
+			ft_printf("Player: %i\nCollectables: %i\nExits: %i\n",
+				a[0], a[1], a[2]);
+	}
+	else if (c == '0' || c == '1' || c == 'P' || c == 'C' || c == 'E')
 	{
 		if (c == 'P')
 			a[0]++;
@@ -83,7 +88,7 @@ void	check_valid(char *map_str, int len, int rows)
 			kill = 1;
 		rows--;
 	}
-	if (!check_valid_char('0', 1) && !kill)
+	if (!check_valid_char('\0', 1) && !kill)
 		kill = 1;
 	if (kill)
 		error_terminate(3, NULL, map_str);

@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:55:03 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 20:40:43 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/29 18:15:52 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	move_player(t_game *game, int where)
 		game->map[game->gmech.player_pos + where] = 'P';
 		game->map[game->gmech.player_pos] = '0';
 		game->gmech.player_pos = game->gmech.player_pos + where;
+		game->gmech.step_num++;
 	}
 }
 
@@ -42,6 +43,5 @@ int	actions(int key, t_game *game)
 		move_player(game, 1);
 	else if (key == KEY_S || key == KEY_DOWN)
 		move_player(game, game->gmech.lenght);
-	game->gmech.step_num++;
 	return (0);
 }

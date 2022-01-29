@@ -6,15 +6,14 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:45:25 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 21:58:00 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/29 21:10:23 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <mlx.h>
-# include <stdlib.h> 
+# include "mlx.h"
 # include "lib/printf/ft_printf.h"
 # include "lib/libft/libft.h"
 # include "lib/GNL/get_next_line.h"
@@ -36,17 +35,17 @@
 #  define KEY_D 0x0064
 # endif
 
-#ifndef KEY_S
-# define KEY_S 0x0073
-#endif
+# ifndef KEY_S
+#  define KEY_S 0x0073
+# endif
 
-#ifndef KEY_ESC
-# define KEY_ESC 0xff1b
-#endif
+# ifndef KEY_ESC
+#  define KEY_ESC 0xff1b
+# endif
 
-#ifndef SPEED
-# define SPEED 68
-#endif
+# ifndef SPEED
+#  define SPEED 68
+# endif
 
 /* Visual assets */
 typedef struct s_assets
