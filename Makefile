@@ -34,13 +34,14 @@ GNL = $(addprefix $(GNL_DIR),$(GNL_FILES))
 LIBFT_FILES = libft.h libft.a
 LIBFT_DIR = src/lib/libft/
 LIBFT = $(addprefix $(LIBFT_DIR),$(LIBFT_FILES))
-MLX_FILES = mlx.h libmlx.a
+MLX_FILES = libmlx_Linux.a
 MLX_DIR = src/lib/mlx/
 MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
 #---Flags-------------------------
 FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 LINKS = -lmlx -framework OpenGL -framework AppKit
-LINKS_2 = -L src/lib/mlx -L /usr/X11/lib -lX11 -lXext -Imlx -lmlx
+LINKS_2 = -Isrc/lib/mlx -lX11 -lXext -lm  -L/usr/include/X11 
+#-I -g -L /usr/X11/lib -Lincludes -L./mlbx -lmlx -Imlx -lXext -lX11 -lz -lm
 IMAC = -D KEY_A=0 -D KEY_W=13 -D KEY_D=2 -D KEY_S=1 -D KEY_ESC=53 -D SPEED=13
 #---Colors------------------------
 NONE='\033[0m'
@@ -59,7 +60,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(ENGINE_OBJ) $(PRINTF) $(LIBFT) $(GNL) $(MLX)
 	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	@gcc $(FLAGS) $(LINKS_2) $(OBJ) $(ENGINE_OBJ) $(LIB) -o $(NAME)
+	gcc $(FLAGS) $(LINKS_2) $(OBJ) $(ENGINE_OBJ) $(MLX) $(LIB) /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so -o $(NAME)
 	@echo $(GREEN)"- Compiled -"$(NONE)
 	@rm $(OBJ)
 	@rm $(ENGINE_OBJ)
@@ -75,16 +76,16 @@ iMac: $(PRINTF) $(LIBFT) $(GNL) $(OBJ_IMAC)
 	@echo $(CURSIVE) $(GRAY) "     Deleted object files" $(NONE)
 
 $(OBJ): $(SRC) 
-	@echo $(CURSIVE)$(GRAY) "     - Making iMac object files..." $(NONE)
-	@gcc $(FLAGS) -D SYS=42 -c $(SRC)
+	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
+	gcc $(FLAGS) $(LINKS_2) -c $(SRC)
 
 $(OBJ_IMAC): $(SRC_IMAC) 
 	@echo $(CURSIVE)$(GRAY) "     - Making iMac object files..." $(NONE)
-	@gcc $(FLAGS) -c $(SRC_IMAC)
+	@gcc $(FLAGS) $(LINKS) -c $(SRC_IMAC)
 
 $(ENGINE_OBJ): $(ENGINE)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
-	@gcc $(FLAGS) -c $(ENGINE)
+	@gcc $(FLAGS) $(LINKS_2) -c $(ENGINE)
 
 $(PRINTF):
 	make -C $(PRINTF_DIR)

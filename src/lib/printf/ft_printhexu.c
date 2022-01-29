@@ -16,8 +16,6 @@ int	printhexu(unsigned int n, int ct)
 {
 	int		last_digit;
 
-	if (n < 0)
-		return (0);
 	if (n > 15)
 	{
 		ct = printhexu(n / 16, ct);

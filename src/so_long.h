@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "mlx.h"
+# include <mlx.h>
 # include "lib/printf/ft_printf.h"
 # include "lib/libft/libft.h"
 # include "lib/GNL/get_next_line.h"

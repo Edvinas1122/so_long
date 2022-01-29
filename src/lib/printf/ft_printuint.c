@@ -16,8 +16,6 @@ int	printuint(unsigned int n, int ct)
 {
 	char		last_digit;
 
-	if (n < 0)
-		return (0);
 	if (n > 9)
 	{
 		ct = printint(n / 10, ct);
