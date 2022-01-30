@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:07:48 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/29 19:00:06 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/30 02:42:04 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	check_valid_mid(char *map, int len, int row)
 	if (map[i] != '1')
 		return (0);
 	while (len-- - 3)
-	{	
+	{
 		if (!check_valid_char(map[++i], 0))
 			return (0);
 	}
