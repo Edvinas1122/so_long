@@ -51,11 +51,12 @@ endif
 
 ifeq ($(OS),Linux)
 	SRC_FILES = main.c
-	MLX_FILES = libmlx_linux.a
+	MLX_FILES = libmlx_Linux.a
 	MLX_DIR = src/lib/mlx/
 	MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
 	X11 = /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so
 	LINKS = -Isrc/lib/mlx -lX11 -lXext -lm  -L/usr/include/X11
+	LINKS_OBJ = -Isrc/lib/mlx
 endif
 
 SRC_DIR = src/
@@ -68,13 +69,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(ENGINE_OBJ) $(PRINTF) $(LIBFT) $(GNL) $(MLX)
 	@echo $(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	gcc $(FLAGS) $(LINKS) $(OBJ) $(ENGINE_OBJ) $(MLX) $(LIB) -o $(NAME)
+	gcc $(FLAGS) $(LINKS) $(OBJ) $(ENGINE_OBJ) $(MLX) $(X11) $(LIB) -o $(NAME)
 	@echo $(GREEN)"- Compiled -"$(NONE)
 	@rm $(OBJ) $(ENGINE_OBJ)
 
 $(OBJ): $(SRC)
 	@echo $(GRAY) "     - Making object files..." $(NONE)
-	@gcc $(FLAGS) $(LINKS_2) -c $(SRC)
+	@gcc $(FLAGS) $(LINKS_OBJ) -c $(SRC)
 
 $(ENGINE_OBJ): $(ENGINE)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
