@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:07:48 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/30 02:42:04 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/30 03:35:08 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ char	*map_to_heap(t_game *game, char **argv)
 		tmp = get_next_line(fd);
 	}
 	check_valid(map_str, game->gmech.lenght, rows);
+	close(fd);
 	return (map_str);
 }
