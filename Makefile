@@ -6,19 +6,11 @@
 #    By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 06:40:44 by emomkus           #+#    #+#              #
-#    Updated: 2022/01/29 21:13:08 by emomkus          ###   ########.fr        #
+#    Updated: 2022/01/30 04:08:35 by emomkus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long.out
-SRC_FILES = main.c
-SRC_DIR = src/
-OBJ = $(SRC_FILES:.c=.o)
-SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
-SRC_FILES_IMAC = main_iMac.c
-SRC_DIR_IMAC = src/
-OBJ_IMAC = $(SRC_FILES_IMAC:.c=.o)
-SRC_IMAC = $(addprefix $(SRC_DIR_IMAC),$(SRC_FILES_IMAC))
 #---ENGINE-----------------------
 ENGINE_FILES = initialize.c map_to_heap.c key_to_heap_map.c display.c
 ENGINE_OBJ = $(ENGINE_FILES:.c=.o)
@@ -26,23 +18,19 @@ ENGINE_DIR = src/engine/
 ENGINE = $(addprefix $(ENGINE_DIR),$(ENGINE_FILES))
 #---Libraries---------------------
 PRINTF_FILES = ft_printf.h libftprintf.a
+# PRINTF_FILES = libftprintf.a
 PRINTF_DIR = src/lib/printf/
 PRINTF = $(addprefix $(PRINTF_DIR),$(PRINTF_FILES))
 GNL_FILES = get_next_line.h get_line.a
+#GNL_FILES = get_line.a
 GNL_DIR = src/lib/GNL/
 GNL = $(addprefix $(GNL_DIR),$(GNL_FILES))
 LIBFT_FILES = libft.h libft.a
+#LIBFT_FILES = libft.a
 LIBFT_DIR = src/lib/libft/
 LIBFT = $(addprefix $(LIBFT_DIR),$(LIBFT_FILES))
-MLX_FILES = libmlx_Linux.a
-MLX_DIR = src/lib/mlx/
-MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
 #---Flags-------------------------
 FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
-LINKS = -lmlx -framework OpenGL -framework AppKit
-LINKS_2 = -Isrc/lib/mlx -lX11 -lXext -lm  -L/usr/include/X11 
-#-I -g -L /usr/X11/lib -Lincludes -L./mlbx -lmlx -Imlx -lXext -lX11 -lz -lm
-IMAC = -D KEY_A=0 -D KEY_W=13 -D KEY_D=2 -D KEY_S=1 -D KEY_ESC=53 -D SPEED=13
 #---Colors------------------------
 NONE='\033[0m'
 GREEN='\033[32m'
@@ -51,41 +39,46 @@ CURSIVE='\033[3m'
 
 OS:= $(shell uname -s)
 ifeq ($(OS),Darwin)
+	SRC_FILES = main_iMac.c
+	MLX_FILES = libmlx.a
+	MLX_DIR = src/lib/mlx_Darwin/
+	MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
+	LINKS_OBJ = -I$(MLX_DIR)
+	LINKS = -L$(MLX_DIR) -framework OpenGL -framework AppKit
+	KEY = -D KEY_A=0 -D KEY_W=13 -D KEY_D=2 -D KEY_S=1 -D KEY_ESC=53 -D SPEED=13
 	CFLAG = -I
 endif
+
+ifeq ($(OS),Linux)
+	SRC_FILES = main.c
+	MLX_FILES = libmlx_linux.a
+	MLX_DIR = src/lib/mlx/
+	MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
+	X11 = /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so
+	LINKS = -Isrc/lib/mlx -lX11 -lXext -lm  -L/usr/include/X11
+endif
+
+SRC_DIR = src/
+SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
+OBJ = $(SRC_FILES:.c=.o)
 
 LIB = $(CFLAG) $(PRINTF) $(CFLAG) $(LIBFT) $(CFLAG) $(GNL)
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(ENGINE_OBJ) $(PRINTF) $(LIBFT) $(GNL) $(MLX)
-	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	gcc $(FLAGS) $(LINKS_2) $(OBJ) $(ENGINE_OBJ) $(MLX) $(LIB) /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so -o $(NAME)
+	@echo $(GRAY) "     - Compiling $(NAME)..." $(NONE)
+	gcc $(FLAGS) $(LINKS) $(OBJ) $(ENGINE_OBJ) $(MLX) $(LIB) -o $(NAME)
 	@echo $(GREEN)"- Compiled -"$(NONE)
-	@rm $(OBJ)
-	@rm $(ENGINE_OBJ)
-	@echo $(CURSIVE) $(GRAY) "     Deleted object files" $(NONE)
+	@rm $(OBJ) $(ENGINE_OBJ)
 
-iMac: $(PRINTF) $(LIBFT) $(GNL) $(OBJ_IMAC) 
-	gcc $(FLAGS) $(IMAC) -c $(SRC_IMAC) $(ENGINE)
-	@echo $(CURSIVE) $(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	gcc $(FLAGS) $(IMAC) $(LINKS) $(OBJ_IMAC) $(ENGINE_OBJ) $(LIB) -o $(NAME)
-	@echo $(GREEN)"- Compiled -"$(NONE)
-	@rm $(OBJ_IMAC)
-	@rm $(ENGINE_OBJ)
-	@echo $(CURSIVE) $(GRAY) "     Deleted object files" $(NONE)
-
-$(OBJ): $(SRC) 
-	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
-	gcc $(FLAGS) $(LINKS_2) -c $(SRC)
-
-$(OBJ_IMAC): $(SRC_IMAC) 
-	@echo $(CURSIVE)$(GRAY) "     - Making iMac object files..." $(NONE)
-	@gcc $(FLAGS) $(LINKS) -c $(SRC_IMAC)
+$(OBJ): $(SRC)
+	@echo $(GRAY) "     - Making object files..." $(NONE)
+	@gcc $(FLAGS) $(LINKS_2) -c $(SRC)
 
 $(ENGINE_OBJ): $(ENGINE)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
-	@gcc $(FLAGS) $(LINKS_2) -c $(ENGINE)
+	@gcc $(FLAGS) $(KEY) $(LINKS_OBJ) -c $(ENGINE)
 
 $(PRINTF):
 	make -C $(PRINTF_DIR)
