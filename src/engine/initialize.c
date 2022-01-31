@@ -6,11 +6,25 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:52:00 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 23:17:42 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:10:38 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	free_mlx(t_game *game)
+{
+	mlx_destroy_image(game->mlx, game->assets.collectable[0]);
+	mlx_destroy_image(game->mlx, game->assets.collectable[1]);
+	mlx_destroy_image(game->mlx, game->assets.exit[0]);
+	mlx_destroy_image(game->mlx, game->assets.exit[1]);
+	mlx_destroy_image(game->mlx, game->assets.ground);
+	mlx_destroy_image(game->mlx, game->assets.wall);
+	mlx_destroy_image(game->mlx, game->assets.player[0]);
+	mlx_destroy_image(game->mlx, game->assets.player[1]);
+	mlx_destroy_window(game->mlx, game->win);
+	free(game->mlx);
+}
 
 static int	player_pos_find(char *map_str)
 {

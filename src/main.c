@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:54:06 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/28 22:20:13 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:10:25 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@ static void	check_file_format(char *name)
 		write(1, "Wrong file format", 17);
 		exit(0);
 	}
-}
-
-void	free_mlx(t_game *game)
-{
-	mlx_destroy_image(game->mlx, game->assets.collectable[0]);
-	mlx_destroy_image(game->mlx, game->assets.collectable[1]);
-	mlx_destroy_image(game->mlx, game->assets.exit[0]);
-	mlx_destroy_image(game->mlx, game->assets.exit[1]);
-	mlx_destroy_image(game->mlx, game->assets.ground);
-	mlx_destroy_image(game->mlx, game->assets.wall);
-	mlx_destroy_image(game->mlx, game->assets.player[0]);
-	mlx_destroy_image(game->mlx, game->assets.player[1]);
-	mlx_destroy_window(game->mlx, game->win);
-	free(game->mlx);
 }
 
 void	error_terminate(int num, t_game *game, char *map)
@@ -70,6 +56,27 @@ static int	close_win(t_game *game)
 	return (0);
 }
 
+#ifdef OS
+
+int	main(int argc, char **argv)
+{
+	t_game	game;
+
+	ft_printf("test2");
+	if (argc != 2)
+	{
+		write (1, "No map name or too many arguments\n", 34);
+		exit(0);
+	}
+	check_file_format(argv[1]);
+	start(&game, argv);
+	mlx_hook(game.win, 17, 0L, close_win, &game);
+	mlx_hook(game.win, 2, 1L << 2, actions, &game);
+	mlx_loop_hook(game.mlx, update_display, (void *)&game);
+	mlx_loop(game.mlx);
+}
+#else
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -79,6 +86,7 @@ int	main(int argc, char **argv)
 		write (1, "No map name or too many arguments\n", 34);
 		exit(0);
 	}
+	ft_printf("test");
 	check_file_format(argv[1]);
 	start(&game, argv);
 	mlx_hook(game.win, 17, 0L, close_win, &game);
@@ -86,3 +94,4 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game.mlx, update_display, (void *)&game);
 	mlx_loop(game.mlx);
 }
+#endif

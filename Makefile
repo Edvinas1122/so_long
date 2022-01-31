@@ -6,12 +6,16 @@
 #    By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 06:40:44 by emomkus           #+#    #+#              #
-#    Updated: 2022/01/31 02:11:58 by emomkus          ###   ########.fr        #
+#    Updated: 2022/01/31 12:12:02 by emomkus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 #---ENGINE-----------------------
+SRC_FILES = main.c
+SRC_DIR = src/
+SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
+OBJ = $(SRC_FILES:.c=.o)
 ENGINE_FILES = initialize.c map_to_heap.c key_to_heap_map.c display.c
 ENGINE_OBJ = $(ENGINE_FILES:.c=.o)
 ENGINE_DIR = src/engine/
@@ -36,7 +40,7 @@ CURSIVE='\033[3m'
 
 OS:= $(shell uname -s)
 ifeq ($(OS),Darwin)
-	SRC_FILES = main_iMac.c
+	KEYS= -D OS=1
 	MLX_FILES = libmlx.a
 	MLX_DIR = src/lib/mlx_Darwin/
 	MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
@@ -48,7 +52,6 @@ endif
 
 ifeq ($(OS),Linux)
 	UPDATE = lib_update
-	SRC_FILES = main.c
 	MLX_FILES = libmlx_Linux.a
 	MLX_DIR = src/lib/mlx/
 	MLX = $(addprefix $(MLX_DIR),$(MLX_FILES))
@@ -56,10 +59,6 @@ ifeq ($(OS),Linux)
 	LINKS = -Isrc/lib/mlx -lX11 -lXext -lm  -L/usr/include/X11
 	LINKS_OBJ = -Isrc/lib/mlx
 endif
-
-SRC_DIR = src/
-SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
-OBJ = $(SRC_FILES:.c=.o)
 
 LIB = $(CFLAG) $(PRINTF) $(CFLAG) $(LIBFT) $(CFLAG) $(GNL)
 
@@ -73,7 +72,7 @@ $(NAME): $(MLX) $(PRINTF) $(LIBFT) $(OBJ) $(ENGINE_OBJ) $(GNL)
 
 $(OBJ): $(SRC)
 	@echo $(GRAY) "     - Making object files..." $(NONE)
-	@gcc $(FLAGS) $(LINKS_OBJ) -c $(SRC)
+	@gcc $(FLAGS) $(KEYS) $(LINKS_OBJ) -c $(SRC)
 
 $(ENGINE_OBJ): $(ENGINE)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
