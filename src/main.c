@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:54:06 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/31 12:10:25 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:14:07 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	ft_printf("test2");
 	if (argc != 2)
 	{
 		write (1, "No map name or too many arguments\n", 34);
@@ -86,7 +85,6 @@ int	main(int argc, char **argv)
 		write (1, "No map name or too many arguments\n", 34);
 		exit(0);
 	}
-	ft_printf("test");
 	check_file_format(argv[1]);
 	start(&game, argv);
 	mlx_hook(game.win, 17, 0L, close_win, &game);
