@@ -73,8 +73,12 @@ static void	itterate_map(t_game *game)
 
 int	update_display(t_game *game)
 {
+	char *str;
+
+	str = ft_itoa(game->gmech.step_num);
 	itterate_map(game);
 	mlx_string_put(game->mlx, game->win, 60, 60, 0x00000000,
-		ft_itoa(game->gmech.step_num));
+		str);
+	free(str);
 	return (1);
 }

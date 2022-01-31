@@ -50,6 +50,7 @@ ifeq ($(OS),Darwin)
 endif
 
 ifeq ($(OS),Linux)
+	UPDATE = lib_update
 	SRC_FILES = main.c
 	MLX_FILES = libmlx_Linux.a
 	MLX_DIR = src/lib/mlx/
@@ -67,9 +68,9 @@ LIB = $(CFLAG) $(PRINTF) $(CFLAG) $(LIBFT) $(CFLAG) $(GNL)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(ENGINE_OBJ) $(PRINTF) $(LIBFT) $(GNL) $(MLX)
+$(NAME): $(OBJ) $(ENGINE_OBJ) $(PRINTF) $(LIBFT) $(GNL) $(MLX) $(UPDATE)
 	@echo $(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	gcc $(FLAGS) $(LINKS) $(OBJ) $(ENGINE_OBJ) $(MLX) $(X11) $(LIB) -o $(NAME)
+	@gcc $(FLAGS) $(LINKS) $(OBJ) $(ENGINE_OBJ) $(MLX) $(X11) $(LIB) -o $(NAME)
 	@echo $(GREEN)"- Compiled -"$(NONE)
 	@rm $(OBJ) $(ENGINE_OBJ)
 
@@ -113,5 +114,8 @@ fclean: clean
 	make fclean -C $(GNL_DIR)
 	make fclean -C $(PRINTF_DIR)
 	make fclean -C $(LIBFT_DIR)
-	
+
+lib_update:
+	./src/lib/update_libs.sh
+
 re: fclean all
