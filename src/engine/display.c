@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:55:05 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/29 18:15:03 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/01/31 03:08:23 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	itterate_map(t_game *game)
 
 int	update_display(t_game *game)
 {
-	char *str;
+	char	*str;
 
 	str = ft_itoa(game->gmech.step_num);
 	itterate_map(game);
