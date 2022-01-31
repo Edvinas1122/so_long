@@ -6,11 +6,11 @@
 #    By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 06:40:44 by emomkus           #+#    #+#              #
-#    Updated: 2022/01/30 04:08:35 by emomkus          ###   ########.fr        #
+#    Updated: 2022/01/31 02:11:58 by emomkus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long.out
+NAME = so_long
 #---ENGINE-----------------------
 ENGINE_FILES = initialize.c map_to_heap.c key_to_heap_map.c display.c
 ENGINE_OBJ = $(ENGINE_FILES:.c=.o)
@@ -18,15 +18,12 @@ ENGINE_DIR = src/engine/
 ENGINE = $(addprefix $(ENGINE_DIR),$(ENGINE_FILES))
 #---Libraries---------------------
 PRINTF_FILES = ft_printf.h libftprintf.a
-# PRINTF_FILES = libftprintf.a
 PRINTF_DIR = src/lib/printf/
 PRINTF = $(addprefix $(PRINTF_DIR),$(PRINTF_FILES))
 GNL_FILES = get_next_line.h get_line.a
-#GNL_FILES = get_line.a
 GNL_DIR = src/lib/GNL/
 GNL = $(addprefix $(GNL_DIR),$(GNL_FILES))
 LIBFT_FILES = libft.h libft.a
-#LIBFT_FILES = libft.a
 LIBFT_DIR = src/lib/libft/
 LIBFT = $(addprefix $(LIBFT_DIR),$(LIBFT_FILES))
 #---Flags-------------------------
@@ -68,7 +65,7 @@ LIB = $(CFLAG) $(PRINTF) $(CFLAG) $(LIBFT) $(CFLAG) $(GNL)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(ENGINE_OBJ) $(PRINTF) $(LIBFT) $(GNL) $(MLX) $(UPDATE)
+$(NAME): $(MLX) $(PRINTF) $(LIBFT) $(OBJ) $(ENGINE_OBJ) $(GNL)
 	@echo $(GRAY) "     - Compiling $(NAME)..." $(NONE)
 	@gcc $(FLAGS) $(LINKS) $(OBJ) $(ENGINE_OBJ) $(MLX) $(X11) $(LIB) -o $(NAME)
 	@echo $(GREEN)"- Compiled -"$(NONE)
@@ -91,7 +88,7 @@ $(LIBFT):
 $(GNL):
 	make -C $(GNL_DIR)
 
-$(MLX):
+$(MLX): $(UPDATE)
 	make -C $(MLX_DIR)
 
 quick:
