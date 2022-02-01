@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:55:03 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/29 18:15:52 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/02/01 03:11:54 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,7 @@ void	move_player(t_game *game, int where)
 int	actions(int key, t_game *game)
 {
 	if (key == KEY_ESC)
-	{
-		write(1, "Quit game\n", 10);
-		free(game->map);
-		mlx_destroy_window(game->mlx, game->win);
-		free(game->mlx);
-		exit(0);
-	}
+		error_terminate(5, game, NULL);
 	else if (key == KEY_W || key == KEY_UP)
 		move_player(game, -game->gmech.lenght);
 	else if (key == KEY_A || key == KEY_LEFT)

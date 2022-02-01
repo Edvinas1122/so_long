@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:45:25 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/29 21:10:23 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/02/01 03:04:46 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_game {
 char	*map_to_heap(t_game *game, char **argv);
 void	start(t_game *game, char **argv);
 void	error_terminate(int num, t_game *game, char *map);
-void	free_mlx(t_game *game);
+int		close_win(t_game *game);
 /* Keys*/
 int		actions(int key, t_game *game);
 /* Display*/

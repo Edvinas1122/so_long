@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 06:54:06 by emomkus           #+#    #+#             */
-/*   Updated: 2022/01/31 12:14:07 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/02/01 03:09:15 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,9 @@
 static void	check_file_format(char *name)
 {
 	if (ft_strlen(name) < 4)
-	{
-		write(1, "Wrong file format", 17);
-		exit(0);
-	}
+		error_terminate(6, NULL, NULL);
 	if (ft_strncmp(&name[ft_strlen(name) - 4], ".ber", 4))
-	{
-		write(1, "Wrong file format", 17);
-		exit(0);
-	}
-}
-
-void	error_terminate(int num, t_game *game, char *map)
-{
-	if (num == 1)
-		write(1, "Permission error\n", 18);
-	else if (num == 2)
-		write(1, "No read\n", 8);
-	else if (num == 3)
-	{
-		write(1, "Invalid map\n", 12);
-		free(map);
-	}
-	else if (num == 4)
-	{
-		free_mlx(game);
-		write(1, "So long !\n", 10);
-	}
-	else if (num == 5)
-	{
-		free_mlx(game);
-		write(1, "Quit game\n", 10);
-	}
-	exit(0);
-}
-
-static int	close_win(t_game *game)
-{
-	error_terminate(5, game, NULL);
-	return (0);
+		error_terminate(6, NULL, NULL);
 }
 
 #ifdef OS
