@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 03:01:23 by emomkus           #+#    #+#             */
-/*   Updated: 2022/02/01 03:24:46 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/02/02 07:28:37 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	error_terminate(int num, t_game *game, char *map)
 		write(1, "No read\n", 8);
 	else if (num == 6)
 		write(1, "Wrong file format\n", 17);
+	else if (num == 7)
+		write(1, "No display driver\n", 18);
 	else if (num == 3)
 	{
 		write(1, "Invalid map\n", 12);

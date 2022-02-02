@@ -6,7 +6,7 @@
 /*   By: emomkus <emomkus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:52:00 by emomkus           #+#    #+#             */
-/*   Updated: 2022/02/01 03:01:38 by emomkus          ###   ########.fr       */
+/*   Updated: 2022/02/02 07:25:39 by emomkus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	start(t_game *game, char **argv)
 {
 	game->map = map_to_heap(game, argv);
 	game->mlx = mlx_init();
+	if (!game->mlx)
+		error_terminate(7, NULL, NULL);
 	game->win = mlx_new_window(game->mlx, (game->gmech.lenght - 1) * 60,
 			60 * (ft_strlen(game->map) / (game->gmech.lenght - 1)), "So Long!");
 	load_assets(game, 60, 60);
